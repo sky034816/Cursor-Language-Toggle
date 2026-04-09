@@ -1,0 +1,22 @@
+{
+  "ext.displayName": "Cursor Language Toggle",
+  "ext.description": "Switch between English, Traditional Chinese, Simplified Chinese, and Japanese interfaces, with one-click window reload.",
+  "ext.config.title": "Cursor Language Toggle",
+  "ext.config.settingsLocale.enumDesc.original": "Restore Cursor English interface",
+  "ext.config.settingsLocale.enumDesc.zhTW": "Apply Traditional Chinese translation",
+  "ext.config.settingsLocale.enumDesc.zhCN": "Apply Simplified Chinese translation",
+  "ext.config.settingsLocale.enumDesc.jaJP": "Apply Japanese",
+  "ext.config.settingsLocale.description": "Choose settings UI locale: English, Traditional Chinese, Simplified Chinese, or Japanese.",
+  "ext.config.systemLocale.enumDesc.original": "Switch system locale to English",
+  "ext.config.systemLocale.enumDesc.zhTW": "Switch system locale to Traditional Chinese",
+  "ext.config.systemLocale.enumDesc.zhCN": "Switch system locale to Simplified Chinese",
+  "ext.config.systemLocale.enumDesc.jaJP": "Switch system locale to Japanese",
+  "ext.config.systemLocale.description": "Choose system locale: English, Traditional Chinese, Simplified Chinese, or Japanese.",
+  "ext.command.setLocaleOriginal": "Cursor Language Toggle: Restore English",
+  "ext.command.setLocaleZhTW": "Cursor Language Toggle: Apply Traditional Chinese",
+  "ext.command.setLocaleZhCN": "Cursor Language Toggle: Apply Simplified Chinese",
+  "ext.command.setLocaleJaJP": "Cursor Language Toggle: Apply Japanese",
+  "ext.command.reloadWindow": "Cursor Language Toggle: Reload Window Now",
+  "ext.views.container.title": "Cursor Language Toggle",
+  "ext.views.controlView.name": "Quick Switch"
+}

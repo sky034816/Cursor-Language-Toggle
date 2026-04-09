@@ -1,0 +1,22 @@
+{
+  "ext.displayName": "Cursor 语言切换",
+  "ext.description": "在英文、繁体中文、简体中文与日文界面之间切换，并提供一键重启窗口。",
+  "ext.config.title": "Cursor 语言切换",
+  "ext.config.settingsLocale.enumDesc.original": "还原为 Cursor 英文界面",
+  "ext.config.settingsLocale.enumDesc.zhTW": "应用繁体中文翻译",
+  "ext.config.settingsLocale.enumDesc.zhCN": "应用简体中文翻译",
+  "ext.config.settingsLocale.enumDesc.jaJP": "应用日文",
+  "ext.config.settingsLocale.description": "选择设置界面语言：英文、繁体中文、简体中文或日文。",
+  "ext.config.systemLocale.enumDesc.original": "系统语言切换为英文",
+  "ext.config.systemLocale.enumDesc.zhTW": "系统语言切换为繁体中文",
+  "ext.config.systemLocale.enumDesc.zhCN": "系统语言切换为简体中文",
+  "ext.config.systemLocale.enumDesc.jaJP": "系统语言切换为日文",
+  "ext.config.systemLocale.description": "选择系统语言：英文、繁体中文、简体中文或日文。",
+  "ext.command.setLocaleOriginal": "Cursor 语言切换：还原英文",
+  "ext.command.setLocaleZhTW": "Cursor 语言切换：应用繁体中文",
+  "ext.command.setLocaleZhCN": "Cursor 语言切换：应用简体中文",
+  "ext.command.setLocaleJaJP": "Cursor 语言切换：应用日文",
+  "ext.command.reloadWindow": "Cursor 语言切换：立即重启窗口",
+  "ext.views.container.title": "Cursor 语言切换",
+  "ext.views.controlView.name": "快速切换"
+}

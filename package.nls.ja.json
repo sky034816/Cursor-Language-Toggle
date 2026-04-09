@@ -1,0 +1,22 @@
+{
+  "ext.displayName": "Cursor 言語切替",
+  "ext.description": "英語、繁体字中国語、簡体字中国語、日本語の UI を切り替え、ワンクリックでウィンドウ再読み込みを行います。",
+  "ext.config.title": "Cursor 言語切替",
+  "ext.config.settingsLocale.enumDesc.original": "Cursor の英語 UI に戻す",
+  "ext.config.settingsLocale.enumDesc.zhTW": "繁体字中国語の翻訳を適用",
+  "ext.config.settingsLocale.enumDesc.zhCN": "簡体字中国語の翻訳を適用",
+  "ext.config.settingsLocale.enumDesc.jaJP": "日本語を適用",
+  "ext.config.settingsLocale.description": "設定 UI の言語を選択: 英語、繁体字中国語、簡体字中国語、日本語。",
+  "ext.config.systemLocale.enumDesc.original": "システム言語を英語に切り替え",
+  "ext.config.systemLocale.enumDesc.zhTW": "システム言語を繁体字中国語に切り替え",
+  "ext.config.systemLocale.enumDesc.zhCN": "システム言語を簡体字中国語に切り替え",
+  "ext.config.systemLocale.enumDesc.jaJP": "システム言語を日本語に切り替え",
+  "ext.config.systemLocale.description": "システム言語を選択: 英語、繁体字中国語、簡体字中国語、日本語。",
+  "ext.command.setLocaleOriginal": "Cursor 言語切替: 英語に戻す",
+  "ext.command.setLocaleZhTW": "Cursor 言語切替: 繁体字中国語を適用",
+  "ext.command.setLocaleZhCN": "Cursor 言語切替: 簡体字中国語を適用",
+  "ext.command.setLocaleJaJP": "Cursor 言語切替: 日本語を適用",
+  "ext.command.reloadWindow": "Cursor 言語切替: 今すぐウィンドウを再読み込み",
+  "ext.views.container.title": "Cursor 言語切替",
+  "ext.views.controlView.name": "クイック切替"
+}
