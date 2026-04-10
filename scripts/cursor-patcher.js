@@ -62,6 +62,14 @@ const RISK_TRANSLATION_KEYS = new Set([
     "images",
     "message",
     "messages",
+    // workbench *.js 使用 \b 替換時，單字 "Rules" 會改到 switch/case 等內部常數，與仍為英文的平行分支（如 Commands）不一致，導致啟動後誤導向 Rules 等異常。
+    "rules",
+    // 與 Rules 同類：常見側欄／設定單字，易與程式字串常數碰撞；略過後該處 UI 可能維持英文。
+    "show",
+    "open",
+    "all",
+    "new",
+    "off",
 ]);
 
 const SAFE_LOWERCASE_SETTINGS_KEYS = new Set([
@@ -72,6 +80,7 @@ const SAFE_EXACT_SETTINGS_KEYS = new Set([
     "Tools",
 ]);
 
+// 盤點：translations/*.json 中「僅英數單一 token」的 key（如 Agents, Git, Tab, Show）若未列入 RISK，改版 Cursor 後應抽樣 workbench 搜尋 case"…" 是否遭 \b 替換誤傷。
 const SETTINGS_SCOPE_HINTS = [
     "Settings",
     "Cursor Account",
@@ -86,7 +95,6 @@ const SETTINGS_SCOPE_HINTS = [
     "Tab",
     "Agent",
     "Subagent",
-    "Rules",
     "Skills",
     "Hooks",
     "MCP",
@@ -318,4 +326,5 @@ if (require.main === module) {
 
 module.exports = {
     applyPatch,
+    isSafeSettingsKey,
 };
