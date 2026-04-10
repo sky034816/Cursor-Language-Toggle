@@ -6,6 +6,7 @@ const path = require("path");
 const vscode = require("vscode");
 const { applyPatch } = require("./scripts/cursor-patcher");
 const { restoreOriginal } = require("./scripts/restore-cursor");
+const { findCursorAppInstall } = require("./scripts/cursor-shared");
 
 const CURSOR_SETTINGS_KEY = "cursorZhPatch.settingsLocale";
 const SYSTEM_LOCALE_KEY = "cursorZhPatch.systemLocale";
@@ -23,6 +24,7 @@ const COMMAND_SET_ZH_CN = "cursorZhPatch.setLocaleZhCN";
 const COMMAND_SET_JA_JP = "cursorZhPatch.setLocaleJaJP";
 const COMMAND_RELOAD = "cursorZhPatch.reloadWindow";
 const FIRST_INSTALL_RELOAD_HINT_KEY = "cursorZhPatch.firstInstallReloadHintShown";
+const LAST_PATCHED_CURSOR_SIGNATURE_KEY = "cursorZhPatch.lastPatchedCursorSignature";
 const ZH_HANT_LANGUAGE_PACK_ID = "ms-ceintl.vscode-language-pack-zh-hant";
 const ZH_HANS_LANGUAGE_PACK_ID = "ms-ceintl.vscode-language-pack-zh-hans";
 const JA_LANGUAGE_PACK_ID = "ms-ceintl.vscode-language-pack-ja";
@@ -35,6 +37,81 @@ let isUninstallingSelf = false;
 let panelProvider = null;
 let userBaselinePath = null;
 let extensionId = "";
+
+function getCurrentCursorInstallSignature() {
+    try {
+        const install = findCursorAppInstall();
+        if (!install || !install.appRoot) {
+            return "";
+        }
+
+        const productJsonPath = path.join(install.appRoot, "product.json");
+        let version = "";
+        if (fs.existsSync(productJsonPath)) {
+            try {
+                const productRaw = fs.readFileSync(productJsonPath, "utf8");
+                const productJson = JSON.parse(productRaw);
+                if (productJson && typeof productJson.version === "string") {
+                    version = productJson.version.trim();
+                }
+            } catch {
+                version = "";
+            }
+        }
+
+        const workbenchPath = path.join(
+            install.appRoot,
+            "out",
+            "vs",
+            "workbench",
+            "workbench.desktop.main.js",
+        );
+        let fallbackSignature = "";
+        if (fs.existsSync(workbenchPath)) {
+            const stat = fs.statSync(workbenchPath);
+            fallbackSignature = `${stat.size}:${Math.floor(stat.mtimeMs)}`;
+        }
+
+        if (version && fallbackSignature) {
+            return `version:${version}|workbench:${fallbackSignature}`;
+        }
+        if (version) {
+            return `version:${version}`;
+        }
+        if (fallbackSignature) {
+            return `workbench:${fallbackSignature}`;
+        }
+        return "";
+    } catch {
+        return "";
+    }
+}
+
+async function tryAutoReapplyOnCursorUpdate(context) {
+    const locale = getCurrentCursorSettingsLocale();
+    if (!locale || locale === "original") {
+        return;
+    }
+
+    const currentSignature = getCurrentCursorInstallSignature();
+    if (!currentSignature) {
+        return;
+    }
+
+    const lastSignature = String(
+        context.globalState.get(LAST_PATCHED_CURSOR_SIGNATURE_KEY, ""),
+    ).trim();
+
+    if (lastSignature === currentSignature) {
+        return;
+    }
+
+    const result = await runCursorSettingsSwitch(locale, { suppressReloadPrompt: true });
+    if (result && result.ok) {
+        await context.globalState.update(LAST_PATCHED_CURSOR_SIGNATURE_KEY, currentSignature);
+        void vscode.window.showInformationMessage("已偵測到 Cursor 更新，已自動重新套用語言設定。");
+    }
+}
 
 function resolveSystemAppName() {
     const appName = String(vscode.env.appName || "").trim();
@@ -694,6 +771,7 @@ async function activate(context) {
 
     await migrateLegacyBooleanSetting();
     await notifyReloadOnFirstInstall(context);
+    await tryAutoReapplyOnCursorUpdate(context);
 
     panelProvider = new ControlPanelViewProvider(context.extensionUri, context.extension.packageJSON.version);
     context.subscriptions.push(
